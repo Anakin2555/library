@@ -1,0 +1,17 @@
+.card-title{
+    font-size: 22px;
+    font-weight: bold;
+}
+.card-text{
+    margin-top: 0px;
+    font-size: 14px;
+}
+a.navbar-brand{
+
+    font-weight: bold;
+    margin-left: 20px;
+}
+.table-column{
+    margin-left: 100px;
+    margin-top: 10px;
+}

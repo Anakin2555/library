@@ -1,0 +1,28 @@
+.navbar-default{
+    background-color: white;
+}
+
+#login_window{
+    background-color: white;
+    background-position: center;
+    background-attachment: fixed;
+    margin-top: 10px;
+    width: 480px;
+    height: 500px;
+}
+
+.form-control{
+    width: 394px;
+
+}
+.button_login{
+    border: none;
+    background-color: #0094ff;
+    height: 60px;
+    color: white;
+    font-size: 18px;
+    font-weight: normal;
+}
+.button_login:hover{
+    background-color: #0286e2;
+}
