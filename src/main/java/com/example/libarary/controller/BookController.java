@@ -35,7 +35,7 @@ public class BookController {
 //    }
 
     @GetMapping("/deleteBook")
-    public boolean deleteBook(@RequestParam("id") String isbn) {
+    public boolean deleteBook(@RequestParam("isbn") String isbn) {
         return bookService.delete(isbn);
     }
 
