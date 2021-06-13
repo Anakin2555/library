@@ -48,7 +48,7 @@ $.ajax({
                     "<p id="+s_author+" class=\'author\' style=\'margin-top: 0px;margin-bottom: 0px;font-size: 8px\'></p>\n" +
                     "<p id="+s_press+" class=\'press\' style=\'margin-top: 2px;margin-bottom: 0px;font-size: 8px\'></p>\n" +
                     "<p id="+s_quantity+" class=\'quantity\' style=\'margin-top: 6px;margin-bottom: 16px;font-size: 8px;\'></p>\n" +
-                    "<button class=\"btn btn-outline-primary\" style=\"width: 80px;height: 32px\"><p style=\"font-size: 12px;font-weight:bold;position: center\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">编辑</p></button>\n" +
+                    "<button id=\'button_edit'\ class=\"btn btn-outline-primary\" style=\"width: 80px;height: 32px\"><p style=\"font-size: 12px;font-weight:bold;position: center\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\">编辑</p></button>\n" +
                     "<button id="+s_button_delete+" style=\'width:80px;border:none;margin-top:8px;background-color:white;font-size: 12px\'>下架</button>\n" +
                     "  </div>\n" +
                     " </div>\n" +
@@ -91,6 +91,12 @@ $.ajax({
             var text="'"+$("#input_title").val()+"'"+"-找到"+result.length+"本相关图书"
             $("#text_result").text(text)
 
+            $("#button_edit").click(function () {
+                $.ajax({
+                    url:192.
+                })
+            })
+
         }
 
     }
@@ -104,5 +110,8 @@ $("#submit_search").click(function () {
     console.log(string_url)
 
 })
+
+
+
 
 

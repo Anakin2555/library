@@ -19,10 +19,10 @@ public class BookService {
     public boolean add(Book book) {
         try (Connection connection = MyConnection.getConn()) {
             QueryRunner runner = new QueryRunner();
-            String sql = "insert into book values(?,?,?,?,?,?,?,?)";
+            String sql = "insert into book(isbn,title,author,press,language,quantity) values(?,?,?,?,?,?)";
             runner.update(connection, sql, book.getIsbn(),
                     book.getTitle(), book.getAuthor(), book.getPress(),
-                    book.getType(), book.getLanguage(), book.getQuantity(), book.getIntro());
+                   book.getLanguage(), book.getQuantity());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,12 +35,12 @@ public class BookService {
             QueryRunner runner = new QueryRunner();
             String sql = "update book set" +
                     " title=?, author=?, press=?," +
-                    " type=?, language=?," +
-                    " quantity=?, intro=? where isbn=?";
+                    " language=?," +
+                    " quantity=?,where isbn=?";
             runner.update(connection, sql,
                     book.getTitle(), book.getAuthor(), book.getPress(),
-                    book.getType(), book.getLanguage(),
-                    book.getQuantity(), book.getIntro(), book.getIsbn());
+                     book.getLanguage(),
+                    book.getQuantity(),  book.getIsbn());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

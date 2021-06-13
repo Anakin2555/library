@@ -42,13 +42,6 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getLanguage() {
         return language;
@@ -66,11 +59,4 @@ public class Book {
         this.quantity = quantity;
     }
 
-    public String getIntro() {
-        return intro;
-    }
-
-    public void setIntro(String intro) {
-        this.intro = intro;
-    }
 }
