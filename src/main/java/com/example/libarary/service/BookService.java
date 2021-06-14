@@ -36,7 +36,7 @@ public class BookService {
             String sql = "update book set" +
                     " title=?, author=?, press=?," +
                     " language=?," +
-                    " quantity=?,where isbn=?";
+                    " quantity=? where isbn=?";
             runner.update(connection, sql,
                     book.getTitle(), book.getAuthor(), book.getPress(),
                      book.getLanguage(),

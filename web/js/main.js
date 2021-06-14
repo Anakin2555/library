@@ -14,10 +14,13 @@ $.ajax({
         } else {
 
             for(var i=0;i<result.length;i++) {
+
+                (function(i) {
                 var s_title="title_"+i;
                 var s_author="author_"+i;
                 var s_press="press_"+i;
                 var s_quantity="quantity_"+i;
+                var s_button_borrow="button_borrow_"+result[i].isbn;
 
 
                 let ap="<li class=\"list-group-item\" style=\"padding: 36px 40px 40px;\">\n" +
@@ -28,7 +31,7 @@ $.ajax({
                     "<p id="+s_author+" class=\'author\' style=\'margin-top: 0px;margin-bottom: 0px;font-size: 8px\'></p>\n" +
                     "<p id="+s_press+" class=\'press\' style=\'margin-top: 2px;margin-bottom: 0px;font-size: 8px\'></p>\n" +
                     "<p id="+s_quantity+" class=\'quantity\' style=\'margin-top: 6px;margin-bottom: 16px;font-size: 8px;\'></p>\n" +
-                    "<button class=\"btn btn-outline-primary\" style=\"width: 80px;height: 32px\"><p style=\"font-size: 12px;font-weight:bold;position: center\">Borrow</p></button>\n" +
+                    "<button id="+s_button_borrow+" class=\'btn btn-outline-primary\' style=\"width: 80px;height: 32px\"><p style=\"font-size: 12px;font-weight:bold;position: center\">借阅</p></button>\n" +
                     "  </div>\n" +
                     " </div>\n" +
                     " </li>"
@@ -43,7 +46,44 @@ $.ajax({
                 $("#"+s_press).text(result[i].press);
                 $("#"+s_quantity).text(result[i].quantity + "本");
 
-                console.log(result[i].title)
+                console.log(result[i].title);
+
+
+
+
+                    $("#" + s_button_borrow).click(function () {
+
+                        var string = window.location.search.split("=");
+                        var book_id = s_button_borrow.split("_")[2]
+                        var book_quantity = s_quantity.split("_")[1]
+
+                        console.log(s_button_borrow)
+
+                        if (string[0] !== "?username") {
+                            window.alert("请先登录")
+                        } else {
+                            if (book_quantity < 1) {
+                                window.alert("图书余量不足")
+
+                            } else {
+                                $.ajax({
+                                    url: "http://localhost:8080/borrowBook",
+                                    data: {
+                                        username: string[1],
+                                        bookId: book_id
+                                    },
+                                    dataType: "json",
+                                    type: "get",
+                                    success: function (result) {
+                                        if (result)
+                                            window.alert("借阅成功")
+                                        window.location.reload()
+                                    }
+                                })
+                            }
+                        }
+                    });
+                })(i)
             }
 
         }
@@ -68,6 +108,8 @@ $(document).ready(function () {
 
         console.log(1)
     }
+
+
 
 
 

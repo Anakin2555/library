@@ -36,7 +36,7 @@ public class UserController {
         return userService.update(user);
     }
 
-    @GetMapping("/borrow")
+    @GetMapping("/borrowBook")
     public boolean borrowBook(@RequestParam("username") String username,
                               @RequestParam("bookId") String bookId) {
         return userService.borrowBook(username, bookId);
