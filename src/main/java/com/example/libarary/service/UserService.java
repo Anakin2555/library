@@ -55,7 +55,7 @@ public class UserService {
         return false;
     }
 
-    public boolean borrowBook(String username, String bookId) {
+    public boolean borrowBook(String username, String bookId,String bookTitle) {
         Date date = new Date();
         Date dueDate = new Date(date.getTime() + 1000L * 30 * 24 * 60 * 60);
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
@@ -65,9 +65,9 @@ public class UserService {
         System.out.println(dueTime);
         try (Connection connection = MyConnection.getConn()) {
             QueryRunner runner = new QueryRunner();
-            String sql1 = "insert into lending_info values(?,?,?,?,?,?)";
+            String sql1 = "insert into lending_info values(?,?,?,?,?,?,?)";
             String sql2 = "update book set quantity=quantity-1 where isbn=?";
-            runner.update(connection, sql1, null, username, bookId, thisTime, dueTime, 1);
+            runner.update(connection, sql1, null, username, bookId, thisTime, dueTime, 1,bookTitle);
             runner.update(connection, sql2, bookId);
             return true;
         } catch (Exception e) {
@@ -76,12 +76,12 @@ public class UserService {
         return false;
     }
 
-    public boolean returnBook(int id, String bookId) {
+    public boolean returnBook(String bookId) {
         try (Connection connection = MyConnection.getConn()) {
             QueryRunner runner = new QueryRunner();
-            String sql1 = "update lending_info set state = 0 where id=?";
+            String sql1 = "update lending_info set state = 0 where book_id=?";
             String sql2 = "update book set quantity=quantity+1 where isbn=?";
-            runner.update(connection, sql1, id);
+            runner.update(connection, sql1, bookId);
             runner.update(connection, sql2, bookId);
             return true;
         } catch (Exception e) {

@@ -15,13 +15,19 @@ public class LendingInfoController {
     @Autowired
     private LendingInfoService lendingInfoService;
 
-    @GetMapping("/lendingInfo")
-    public String getLendingInfo(@RequestParam("username") String username) {
-        List<LendingInfo> lendingInfos = lendingInfoService.query(username);
+    @GetMapping("/getLendingInfoByUsername")
+    public String getLendingInfoByUsername(@RequestParam("username") String username) {
+        List<LendingInfo> lendingInfos = lendingInfoService.queryByUsername(username);
         return JSONObject.toJSONString(lendingInfos);
     }
 
-    @GetMapping("/allLendingInfo")
+    @GetMapping("/getLendingInfoByTitle")
+    public String getLendingInfoByTitle(@RequestParam("title") String title) {
+        List<LendingInfo> lendingInfos = lendingInfoService.queryByTitle(title);
+        return JSONObject.toJSONString(lendingInfos);
+    }
+
+    @GetMapping("/getLendingInfo")
     public String getLendingInfo() {
         List<LendingInfo> lendingInfos = lendingInfoService.queryAll();
         return JSONObject.toJSONString(lendingInfos);

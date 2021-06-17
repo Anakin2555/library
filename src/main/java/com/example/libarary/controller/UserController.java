@@ -38,14 +38,14 @@ public class UserController {
 
     @GetMapping("/borrowBook")
     public boolean borrowBook(@RequestParam("username") String username,
-                              @RequestParam("bookId") String bookId) {
-        return userService.borrowBook(username, bookId);
+                              @RequestParam("bookId") String bookId,
+                              @RequestParam("bookTitle") String bookTitle) {
+        return userService.borrowBook(username, bookId,bookTitle);
     }
 
-    @GetMapping("/return")
-    public boolean returnBook(@RequestParam("id") int id,
-                              @RequestParam("bookId") String bookId) {
-        return userService.returnBook(id, bookId);
+    @GetMapping("/returnBook")
+    public boolean returnBook(@RequestParam("bookId") String bookId) {
+        return userService.returnBook(bookId);
     }
 
     @GetMapping("/getUsers")

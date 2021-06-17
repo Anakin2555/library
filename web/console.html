@@ -149,9 +149,10 @@
     <div class="container" style="margin-left: 0px;margin-top:32px;padding:24px;background-color: white">
         <p style="font-size: 24px;font-weight: bold">借阅记录</p>
         <div class="input-group mb-3" style="width: 348px;" >
-            <input type="text" class="form-control"  placeholder="输入书名" aria-label="输入书名" aria-describedby="button-addon2">
-            <button class="btn btn-outline-primary" type="button" id="button-addon2">查询</button>
+            <input id="input_search_record" type="text" class="form-control"  placeholder="输入书名" aria-label="输入书名" aria-describedby="button-addon2">
+            <button id="button_submit_search" class="btn btn-outline-primary" type="button">查询</button>
         </div>
+        <button id="button_showall" class="btn btn-light" style="display:none;font-size: 12px"></button>
         <table class="table" style="margin-top: 28px">
             <thead>
             <tr>
@@ -160,18 +161,19 @@
                 <th scope="col">ISBN</th>
                 <th scope="col">借阅者</th>
                 <th scope="col">借阅时间</th>
+                <th scope="col">状态</th>
                 <th scope="col"></th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
+            <tbody id="tbody">
+            <!--<tr>
                 <th scope="row">1</th>
                 <td>Markddd</td>
                 <td>Ottoddd</td>
                 <td>@mdo</td>
                 <td>@mdo</td>
                 <td><button class="btn btn-outline-primary" style="padding:0px;font-size:12px;width: 50px;height:28px">归还</button></td>
-            </tr>
+            </tr>-->
             </tbody>
         </table>
     </div>

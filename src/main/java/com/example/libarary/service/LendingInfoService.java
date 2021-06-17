@@ -13,10 +13,10 @@ import java.util.Map;
 
 @Service
 public class LendingInfoService {
-    public List<LendingInfo> query(String username) {
+    public List<LendingInfo> queryByUsername(String username) {
         try (Connection connection = MyConnection.getConn()) {
             QueryRunner runner = new QueryRunner();
-            String sql = "select lending_info.id, reader, book_id bookId, title bookTitle," +
+            String sql = "select lending_info.id, reader, book_id bookId, book_title bookTitle," +
                     " lend_date lendDate, due_date dueDate, state" +
                     " from lending_info join book on book.isbn=lending_info.book_id" +
                     " where reader=? order by state desc";
@@ -32,13 +32,30 @@ public class LendingInfoService {
     public List<LendingInfo> queryAll() {
         try (Connection connection = MyConnection.getConn()) {
             QueryRunner runner = new QueryRunner();
-            String sql = "select lending_info.id, reader, book_id bookId, title bookTitle," +
+            String sql = "select lending_info.id, reader, book_id bookId, book_title bookTitle," +
                     " lend_date lendDate, due_date dueDate, state" +
                     " from lending_info join book on book.isbn=lending_info.book_id" +
-                    " order by state desc";
+                    " order by lendDate desc";
             BeanListHandler<LendingInfo> handler =
                     new BeanListHandler<>(LendingInfo.class);
             return runner.query(connection, sql, handler);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<LendingInfo> queryByTitle(String title) {
+        try (Connection connection = MyConnection.getConn()) {
+            QueryRunner runner = new QueryRunner();
+            String sql = "select lending_info.id, reader, book_id bookId, book_title bookTitle," +
+                    " lend_date lendDate, due_date dueDate, state" +
+                    " from lending_info join book on book.isbn=lending_info.book_id" +
+                    " where book_title like ? order by state desc";
+            BeanListHandler<LendingInfo> handler =
+                    new BeanListHandler<>(LendingInfo.class);
+            String string="%"+title+"%";
+            return runner.query(connection, sql, handler, string);
         } catch (Exception e) {
             e.printStackTrace();
         }

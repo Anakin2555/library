@@ -55,13 +55,14 @@ $.ajax({
 
                         var string = window.location.search.split("=");
                         var book_id = s_button_borrow.split("_")[2]
-                        var book_quantity = s_quantity.split("_")[1]
+                        var book_quantity = result[i].quantity
+                        var book_title=result[i].title
 
-                        console.log(s_button_borrow)
 
                         if (string[0] !== "?username") {
                             window.alert("请先登录")
                         } else {
+                            console.log("booktitle:"+book_title+"  quantity:"+book_quantity)
                             if (book_quantity < 1) {
                                 window.alert("图书余量不足")
 
@@ -70,7 +71,8 @@ $.ajax({
                                     url: "http://localhost:8080/borrowBook",
                                     data: {
                                         username: string[1],
-                                        bookId: book_id
+                                        bookId: book_id,
+                                        bookTitle:book_title
                                     },
                                     dataType: "json",
                                     type: "get",
