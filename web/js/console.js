@@ -15,6 +15,11 @@ $(document).ready(function () {
             console.log("login")
         })
 
+        $("#button_chart").click(function () {
+            window.location.href = "chart.html" + "?username=" + username
+
+        })
+
         console.log(1)
 
 

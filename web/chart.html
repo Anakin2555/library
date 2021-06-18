@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>记录图-线上图书馆</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/console.css">
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</head>
+<body style="background-color: #f8f8f8">
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: white">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="font-size: 24px">Library Online</a>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="margin-top:4px;margin-left: 40px">
+            <div class="navbar-nav">
+                <!--<a class="nav-link" id="link_home" aria-current="page" href="main.html">Home</a>-->
+
+                <a class="nav-link active" id="link_console" aria-current="page" style="margin-left: 12px" href="#">Console</a>
+
+                <!--<a class="nav-link" href="#" style="margin-left: 20px">Features</a>-->
+                <!--<form class="d-flex" style="margin-left: 20px;">
+                    <input class="form-control me-2" type="search" placeholder="搜索书名" aria-label="Search"
+                           style="width: 280px;height:40px;display: inline">
+                    <button class="btn btn-outline-dark" type="submit" style="height:36px;margin-top: 2px">GO
+                    </button>
+                </form>-->
+
+            </div>
+        </div>
+        <div class="d-flex dropdown" style="margin-right: 20px">
+            <a id="login_button" class="btn btn-light " data-bs-toggle="dropdown" type="button"  aria-expanded="false" href="login.html">
+                <img src="icon/bootstrap-icons-1.5.0/person.svg" style="margin-right: 6px" width="14" height="14" alt="">
+                <p id=“user-info” class="dropdown-toggle" style="display: inline;font-size: 14px;">登录</p>
+            </a>
+            <ul class="dropdown-menu"  aria-labelledby="dropdownMenuButton" >
+                <li><a id="convert_user" class="dropdown-item"  style="font-size: 10px" href="#">切换用户</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a id="sign_out" class="dropdown-item" style="font-size: 10px" href="#">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div class="container align-content-center" style="margin-top: 40px;" >
+    <br/>
+    <div class="container" style="margin-top: 16px">
+        <h1 style="font-weight: bold">统计图</h1>
+        <h6>Chart</h6>
+    </div>
+
+    <div id="main" style="margin-top:20px;margin-left:10px;width: 600px;height:400px;"></div>
+
+
+    </div>
+
+
+<script  type="text/javascript">
+
+    var arrayDate=[]
+    var dates=[]
+    var times=[]
+
+
+    $.ajax({
+        url:"http://localhost:8080/getLendingInfo",
+        type:"get",
+        datatype:"json",
+        success:function (result) {
+            console.log(result)
+            var json=JSON.parse(result)
+            console.log(json)
+            console.log(json.length)
+
+
+            for(var i=0;i<json.length;i++){
+                arrayDate.push(json[i].lendDate)
+            }
+            console.log(arrayDate)
+
+            dates[0]=arrayDate[arrayDate.length-1]
+            times[0]=1
+            var j=0
+            for(var i=0;i<arrayDate.length-1;i++){
+
+                if(arrayDate[arrayDate.length-2-i]===dates[j]) {
+                    times[j]=times[j]+1
+                }
+                else{
+                    j=j+1
+                    dates[j]=arrayDate[arrayDate.length-2-i]
+                    times[j]=1
+                }
+
+            }
+            console.log(dates)
+            console.log(times)
+
+            var myChart = echarts.init(document.getElementById('main'));
+
+            // 指定图表的配置项和数据
+            var option = {
+                color:['#0d6efd'],
+                title: {
+                    text: '借阅记录统计'
+                },
+                tooltip: {},
+                legend: {
+                    data:['记录数']
+                },
+                xAxis: {
+                    data: dates
+                },
+                yAxis: {},
+                series: [{
+                    name: '借阅记录数',
+                    type: 'bar',
+                    data: times
+                }]
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+
+
+
+
+        }
+    })
+
+</script>
+
+
+</body>
+</html>
